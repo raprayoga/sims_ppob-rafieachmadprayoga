@@ -6,6 +6,7 @@ const meta: Meta<typeof Button> = {
   args: {
     children: "Button",
     theme: "primary",
+    variant: "filled",
     className: "w-36",
   },
   tags: ["autodocs"],
@@ -15,3 +16,9 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {};
+
+export const Ghost: Story = {
+  args: {
+    variant: "ghost",
+  },
+};
