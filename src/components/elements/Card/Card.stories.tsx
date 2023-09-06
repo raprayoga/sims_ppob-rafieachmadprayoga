@@ -7,7 +7,7 @@ const meta: Meta<typeof Card> = {
     children: "Card",
     theme: "primary",
     size: "small",
-    className: "w-36 text-white",
+    className: "w-36 text-green",
   },
   tags: ["autodocs"],
 };
