@@ -6,3 +6,20 @@ body {
   color: "#c6c0c0";
   background: "#ffffff";
 }
+
+.fade-top {
+  animation-name: fade;
+  animation-duration: 300ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade {
+  from {
+    transform: translate(-50%, 10%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
