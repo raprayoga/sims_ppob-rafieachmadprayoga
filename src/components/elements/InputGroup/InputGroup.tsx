@@ -1,15 +1,14 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/utils";
 
 export const inputGroupVariant = cva(
-  "flex justify-center items-center rounded-lg p-0 overflow-hidden",
+  "relative flex justify-center items-center p-0 overflow-hidden h-full",
   {
     variants: {
       sizes: {
-        small: "h-[35px] text-xs",
-        large: "h-10 text-sm",
+        small: "text-xs",
+        large: "text-sm",
       },
     },
     defaultVariants: {
