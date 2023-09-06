@@ -8,6 +8,7 @@ const toastVariant = cva("pr-8 fixed z-50 bottom-2 left-1/2 w-4/5 fade-top", {
   variants: {
     theme: {
       danger: "bg-salmon text-primary",
+      green: "bg-green text-white",
       white: "bg-white border border-gray text-gray",
     },
   },
