@@ -3,16 +3,16 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils";
 
 export const inputVariant = cva(
-  "h-full w-full border rounded outline-0 color-gray focus:shadow-md py-2 text-gray px-2",
+  "h-full w-full border rounded outline-0 color-gray focus:shadow-md py-2 placeholder:text-gray text-gray px-2",
   {
     variants: {
-      variant: {
+      theme: {
         default: "border-gray focus:shadow-gray",
         primary: "border-primary focus:shadow-primary",
       },
     },
     defaultVariants: {
-      variant: "default",
+      theme: "default",
     },
   }
 );
@@ -24,10 +24,10 @@ export interface InputProps
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, variant, ...props }, ref) => {
+  ({ className, theme, ...props }, ref) => {
     return (
       <input
-        className={cn(inputVariant({ variant }), className)}
+        className={cn(inputVariant({ theme }), className)}
         ref={ref}
         {...props}
       />
