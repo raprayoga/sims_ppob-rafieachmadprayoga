@@ -16,6 +16,7 @@ const config: Config = {
         "gray-shadow": "#d1d1d1",
         black: "#333130",
         green: "#52bd94",
+        salmon: "#fff5f3",
       },
     },
   },
