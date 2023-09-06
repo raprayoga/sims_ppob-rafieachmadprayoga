@@ -2,11 +2,11 @@ import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils";
 
-const cardVariants = cva("rounded-lg shadow-card", {
+const cardVariants = cva("rounded-lg", {
   variants: {
     theme: {
       primary: "bg-primary",
-      white: "bg-white border border-gray-shadow",
+      white: "bg-white border border-gray",
     },
     size: {
       small: "p-3",
