@@ -49,9 +49,9 @@ const Header = React.forwardRef<
             Transaction
           </Link>
           <Link
-            href="/akun"
+            href="/account"
             className={
-              router.pathname === "/akun" ? "text-primary font-bold" : ""
+              router.pathname === "/account" ? "text-primary font-bold" : ""
             }
           >
             Akun
