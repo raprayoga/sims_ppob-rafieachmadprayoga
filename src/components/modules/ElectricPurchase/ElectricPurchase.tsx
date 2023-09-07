@@ -60,7 +60,7 @@ export function ElectricPurchase({
           height={50}
           className="mb-5"
         />
-        <p className="text-sm">Anda yakin untuk Top Up sebesar</p>
+        <p className="text-sm">Beli listrik prabayar senilai</p>
         <p className="font-bold text-xl">
           Rp{new Intl.NumberFormat("id-ID").format(+nominal)}?
         </p>
@@ -68,7 +68,7 @@ export function ElectricPurchase({
           className="text-sm font-bold text-primary my-6 cursor-pointer"
           onClick={() => {}}
         >
-          Ya, Lanjutkan Top Up
+          Ya, Lanjutkan Bayar
         </p>
         <p
           className="text-sm text-gray cursor-pointer"
