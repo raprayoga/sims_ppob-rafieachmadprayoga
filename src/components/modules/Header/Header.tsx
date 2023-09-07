@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/utils";
 import Image from "next/image";
-import logo from "@/assets/Logo.png";
+import logo from "@/assets/images/Logo.png";
 import Link from "next/link";
 
 const Header = React.forwardRef<
@@ -16,7 +16,7 @@ const Header = React.forwardRef<
     )}
     {...props}
   >
-    <div className="max-w-[1280px] w-full flex justify-between">
+    <div className="max-w-[1280px] w-full mx-auto flex justify-between">
       <Link href="/" className="flex items-center">
         <Image
           src={logo}

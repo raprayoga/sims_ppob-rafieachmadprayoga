@@ -10,7 +10,7 @@ import {
 import Button from "@/components/elements/Button";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/assets/Logo.png";
+import logo from "@/assets/images/Logo.png";
 
 export function LoginForm({
   className,
