@@ -47,6 +47,16 @@ const buttonVariants = cva(
         class:
           "border border-green text-green bg-white hover:bg-green hover:text-white",
       },
+      {
+        variant: "ghost",
+        isDisabled: true,
+        class: "border border-gray text-gray cursor-not-allowed",
+      },
+      {
+        variant: "filled",
+        isDisabled: true,
+        class: "bg-gray text-white border-none cursor-not-allowed",
+      },
     ],
   }
 );
