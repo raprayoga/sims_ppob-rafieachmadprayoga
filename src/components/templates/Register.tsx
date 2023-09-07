@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import RegisterForm from "@/components/modules/RegisterForm";
-import illustrasiLogin from "@/assets/illustration/Illustrasi-Login.png";
+import illustrasiLogin from "@/assets/images/illustration/Illustrasi-Login.png";
 
 export default function Register() {
   return (
