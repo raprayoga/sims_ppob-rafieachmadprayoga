@@ -17,15 +17,6 @@ export function PersonalInfo({
       return !prevState;
     });
   };
-
-  const saldoFormat = (saldo: number): string => {
-    if (sShowSaldo) return "&#9679; &#9679; &#9679; &#9679;";
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(saldo);
-  };
-
   return (
     <div {...props} className={cn("flex justify-between", className)}>
       <div className="w-1/2">
@@ -45,13 +36,10 @@ export function PersonalInfo({
           <div className="absolute text-white top-0 bottom-0 p-3 flex flex-col justify-between">
             <p>Saldo anda</p>
             <p className="text-3xl">
+              Rp{" "}
               {sShowSaldo &&
-                new Intl.NumberFormat("id-ID", {
-                  style: "currency",
-                  currency: "IDR",
-                  maximumFractionDigits: 0,
-                }).format(currentSaldo)}
-              {!sShowSaldo && <>Rp &#9679; &#9679; &#9679; &#9679;</>}
+                new Intl.NumberFormat("id-ID").format(currentSaldo)}
+              {!sShowSaldo && <>&#9679; &#9679; &#9679; &#9679;</>}
             </p>
             <span className="text-xs">
               Lihat Saldo

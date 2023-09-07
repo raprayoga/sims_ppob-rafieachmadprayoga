@@ -8,7 +8,7 @@ const InputGroup = React.forwardRef<
   return (
     <div
       className={cn(
-        "relative flex justify-center items-center p-0 overflow-hidden h-full text-sm",
+        "relative flex justify-center items-center p-0 overflow-hidden text-sm",
         className
       )}
       ref={ref}
