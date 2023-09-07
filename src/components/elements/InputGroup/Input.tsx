@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/utils";
 
 export const inputVariant = cva(
-  "h-full w-full border rounded outline-0 color-gray focus:shadow-md py-2 placeholder:text-gray text-gray px-2",
+  "h-full w-full border rounded outline-0 focus:shadow-md py-2 placeholder:text-gray text-black px-2",
   {
     variants: {
       theme: {

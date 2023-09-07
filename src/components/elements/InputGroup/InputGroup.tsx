@@ -1,4 +1,5 @@
 import * as React from "react";
+import { cn } from "@/utils";
 
 const InputGroup = React.forwardRef<
   HTMLDivElement,
@@ -6,7 +7,10 @@ const InputGroup = React.forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <div
-      className="relative flex justify-center items-center p-0 overflow-hidden h-full text-sm"
+      className={cn(
+        "relative flex justify-center items-center p-0 overflow-hidden h-full text-sm",
+        className
+      )}
       ref={ref}
       {...props}
     />
