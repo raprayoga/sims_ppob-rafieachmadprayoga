@@ -6,27 +6,20 @@ import {
   UserIcon,
   EyeIcon,
   EyeSlashIcon,
-  LockClosedIcon,
 } from "@heroicons/react/24/outline";
 import Button from "@/components/elements/Button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/Logo.png";
 
-export function RegisterForm({
+export function LoginForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const [isShowPass, setIsShowPass] = useState(false);
-  const [isShowPassKonf, setIsShowPassKonf] = useState(false);
 
   const handleToggleShowPass = () => {
     setIsShowPass((prevState) => {
-      return !prevState;
-    });
-  };
-  const handleToggleShowPassKonf = () => {
-    setIsShowPassKonf((prevState) => {
       return !prevState;
     });
   };
@@ -63,20 +56,6 @@ export function RegisterForm({
 
         <InputGroup className="w-full mt-8">
           <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input name="first_name" placeholder="nama depan" className="pl-6" />
-        </InputGroup>
-
-        <InputGroup className="w- mt-8">
-          <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            name="last_name"
-            placeholder="nama belakang"
-            className="pl-6"
-          />
-        </InputGroup>
-
-        <InputGroup className="w-full mt-8">
-          <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
           <Input
             name="last_name"
             type={isShowPass ? "text" : "password"}
@@ -92,27 +71,6 @@ export function RegisterForm({
           </div>
         </InputGroup>
 
-        <InputGroup className="w-full mt-8">
-          <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            type={isShowPassKonf ? "text" : "password"}
-            placeholder="konfirmasi password"
-            className="px-6"
-          />
-
-          <div
-            onClick={handleToggleShowPassKonf}
-            className="absolute right-2 left-auto cursor-pointer"
-          >
-            {!isShowPassKonf && (
-              <EyeIcon className="w-3 stroke-2 text-gray cursor-pointer" />
-            )}
-            {isShowPassKonf && (
-              <EyeSlashIcon className="w-3 stroke-2 text-gray cursor-pointer" />
-            )}
-          </div>
-        </InputGroup>
-
         <Button theme="primary" className="w-full mt-8">
           Registrasi
         </Button>
@@ -120,8 +78,8 @@ export function RegisterForm({
 
       <div className="mt-5">
         <span className="text-xs ">
-          sudah punya akun? login{" "}
-          <Link href="/login" className="text-primary">
+          belum punya akun? registrasi{" "}
+          <Link href="/register" className="text-primary">
             di sini
           </Link>
         </span>
