@@ -9,6 +9,7 @@ export const inputVariant = cva(
       theme: {
         default: "border-gray focus:shadow-gray",
         primary: "border-primary focus:shadow-primary",
+        green: "border-green focus:shadow-green",
       },
     },
     defaultVariants: {
