@@ -51,7 +51,10 @@ const Header = React.forwardRef<
           <Link
             href="/account"
             className={
-              router.pathname === "/account" ? "text-primary font-bold" : ""
+              router.pathname === "/account" ||
+              router.pathname === "/account/edit"
+                ? "text-primary font-bold"
+                : ""
             }
           >
             Akun

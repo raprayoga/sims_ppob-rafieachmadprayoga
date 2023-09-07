@@ -1,27 +1,21 @@
 import React from "react";
-import { useRouter } from "next/router";
-import Image from "next/image";
 import { cn } from "@/utils";
 import { Input, InputGroup } from "@/components/elements/InputGroup";
 import Button from "@/components/elements/Button";
+import Image from "next/image";
 import Card from "@/components/elements/Card";
 import { AtSymbolIcon, UserIcon } from "@heroicons/react/24/outline";
 import { PencilIcon } from "@heroicons/react/24/solid";
 import profilePhoto from "@/assets/images/illustration/Profile-Photo.png";
 
-export function AccountProfile({
+export function AccountEditProfile({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const router = useRouter();
   const profile = {
     email: "wallet@nutech.com",
     first_name: "Kristanto",
     last_name: "Wibowo",
-  };
-
-  const handleToEdit = () => {
-    router.push("/account/edit");
   };
 
   return (
@@ -47,7 +41,7 @@ export function AccountProfile({
       <div>
         <InputGroup className="w-full">
           <AtSymbolIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input name="email" className="pl-6" value={profile.email} readOnly />
+          <Input name="email" className="pl-6" value={profile.email} />
         </InputGroup>
 
         <InputGroup className="w-full mt-8">
@@ -57,7 +51,6 @@ export function AccountProfile({
             placeholder="nama depan"
             className="pl-6"
             value={profile.first_name}
-            readOnly
           />
         </InputGroup>
 
@@ -68,16 +61,11 @@ export function AccountProfile({
             placeholder="nama belakang"
             className="pl-6"
             value={profile.last_name}
-            readOnly
           />
         </InputGroup>
 
-        <Button theme="primary" className="w-full mt-8" onClick={handleToEdit}>
-          Edit Profile
-        </Button>
-
-        <Button theme="primary" variant="ghost" className="w-full mt-8">
-          Logout
+        <Button theme="primary" className="w-full mt-8">
+          Simpan
         </Button>
       </div>
     </div>
