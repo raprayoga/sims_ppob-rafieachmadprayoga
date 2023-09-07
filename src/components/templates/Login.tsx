@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import illustrasiLogin from "@/assets/illustration/Illustrasi-Login.png";
+import illustrasiLogin from "@/assets/images/illustration/Illustrasi-Login.png";
 import { LoginForm } from "../modules/LoginForm/LoginForm";
 
 export default function Login() {
