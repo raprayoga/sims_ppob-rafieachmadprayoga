@@ -6,6 +6,7 @@ import userReducer from "./user";
 import balanceReducer from "./balance";
 import servicesReducer from "./services";
 import bannersReducer from "./banners";
+import topupReducer from "./topup";
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     balance: balanceReducer,
     services: servicesReducer,
     banners: bannersReducer,
+    topup: topupReducer,
   },
 });

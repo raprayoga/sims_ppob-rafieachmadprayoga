@@ -23,8 +23,8 @@ export interface RegistResponse {
 
 export interface RegistSliceState {
   loading: boolean;
-  data: null | LoginResponse;
-  error?: null | LoginResponse;
+  data: null | RegistResponse;
+  error?: null | RegistResponse;
 }
 
 export interface RegistInputForm {
