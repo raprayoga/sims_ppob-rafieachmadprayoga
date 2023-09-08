@@ -8,6 +8,7 @@ import servicesReducer from "./services";
 import bannersReducer from "./banners";
 import topupReducer from "./topup";
 import purchaseReducer from "./purchase";
+import transactionsReducer from "./transactions";
 
 export default configureStore({
   reducer: {
@@ -20,5 +21,6 @@ export default configureStore({
     banners: bannersReducer,
     topup: topupReducer,
     purchase: purchaseReducer,
+    transactions: transactionsReducer,
   },
 });

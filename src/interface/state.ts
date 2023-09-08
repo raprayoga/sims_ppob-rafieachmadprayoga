@@ -6,6 +6,7 @@ import { ServicesSliceState } from "./services";
 import { BannersSliceState } from "./banners";
 import { TopupSliceState } from "./topup";
 import { PurchaseSliceState } from "./purchase";
+import { TransactionsSliceState } from "./transactions";
 
 export interface sliceState {
   auth: AuthSliceState;
@@ -17,4 +18,5 @@ export interface sliceState {
   banners: BannersSliceState;
   topup: TopupSliceState;
   purchase: PurchaseSliceState;
+  transactions: TransactionsSliceState;
 }
