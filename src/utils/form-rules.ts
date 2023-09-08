@@ -7,6 +7,10 @@ export const formRules = {
     value: /\S+@\S+\.\S+/,
     message: "Field ini harus berformat email",
   },
+  minNominal: (number: number) => ({
+    value: number,
+    message: "Harus lebih besar dari " + number,
+  }),
 };
 
 export function getVariant(dirty: boolean, error: boolean) {

@@ -4,6 +4,7 @@ import { ProfileSliceState } from "./user";
 import { BalanceSliceState } from "./balance";
 import { ServicesSliceState } from "./services";
 import { BannersSliceState } from "./banners";
+import { TopupSliceState } from "./topup";
 
 export interface sliceState {
   auth: AuthSliceState;
@@ -13,4 +14,5 @@ export interface sliceState {
   balance: BalanceSliceState;
   services: ServicesSliceState;
   banners: BannersSliceState;
+  topup: TopupSliceState;
 }
