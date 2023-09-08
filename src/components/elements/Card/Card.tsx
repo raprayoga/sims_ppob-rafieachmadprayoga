@@ -7,6 +7,7 @@ const cardVariants = cva("rounded-lg", {
     theme: {
       primary: "bg-primary",
       white: "bg-white border border-gray",
+      green: "border border-green shadow shadow-green",
     },
     size: {
       small: "p-3",

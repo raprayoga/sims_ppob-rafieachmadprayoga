@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { toastSliceState } from "@/interface/toast";
+import { ToastSliceState } from "@/interface/toast";
 
-const initialState: toastSliceState = {
+const initialState: ToastSliceState = {
   isShow: false,
   type: "white",
   message: "",

@@ -1,21 +1,26 @@
 import { loginUser } from "@/services/authService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "@/services/baseService";
-import { authSliceState, loginResponse } from "@/interface/auth";
-import { Inputs } from "@/components/modules/LoginForm/LoginForm";
+import {
+  AuthSliceState,
+  LoginInputsForm,
+  LoginResponse,
+} from "@/interface/auth";
+import Router from "next/router";
 
-const initialState: authSliceState = {
+const initialState: AuthSliceState = {
   isLogin: false,
   loading: false,
   error: null,
 };
 
-export const loginAsync = createAsyncThunk<loginResponse, Inputs>(
+export const loginAsync = createAsyncThunk<LoginResponse, LoginInputsForm>(
   "auth/fetchLogin",
   async (payload, { rejectWithValue }) => {
     return await loginUser(payload)
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }
@@ -27,6 +32,7 @@ export const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.isLogin = false;
+      delete http.defaults.headers.common.Authorization;
     },
   },
   extraReducers: (builder) => {
@@ -41,9 +47,8 @@ export const authSlice = createSlice({
           "JWT " + action.payload?.data?.token;
       })
       .addCase(loginAsync.rejected, (state, action) => {
-        console.log(action);
         state.loading = state.isLogin = false;
-        state.error = action.payload as loginResponse;
+        state.error = action.payload as LoginResponse;
       });
   },
 });

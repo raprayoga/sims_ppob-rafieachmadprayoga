@@ -1,39 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/utils";
-
-import pbb from "@/assets/images/products/PBB.png";
-import listrik from "@/assets/images/products/Listrik.png";
-import pulsa from "@/assets/images/products/Pulsa.png";
-import pdam from "@/assets/images/products/PDAM.png";
-import pgn from "@/assets/images/products/PGN.png";
-import televisi from "@/assets/images/products/Televisi.png";
-import musik from "@/assets/images/products/Musik.png";
-import game from "@/assets/images/products/Game.png";
-import makanan from "@/assets/images/products/Voucher-Makanan.png";
-import kurban from "@/assets/images/products/Kurban.png";
-import zakat from "@/assets/images/products/Zakat.png";
-import data from "@/assets/images/products/Paket-Data.png";
-
-const imageList = [
-  { src: pbb, text: "pbb" },
-  { src: listrik, text: "Listrik" },
-  { src: pulsa, text: "Pulsa" },
-  { src: pdam, text: "PDAM" },
-  { src: pgn, text: "PGN" },
-  { src: televisi, text: "TV Langganan" },
-  { src: musik, text: "Musik" },
-  { src: game, text: "Voucher Game" },
-  { src: makanan, text: "Voucher Makanan" },
-  { src: kurban, text: "Kurban" },
-  { src: zakat, text: "Zakat" },
-  { src: data, text: "Paket Data" },
-];
+import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { servicesAsync } from "@/store/services";
+import { sliceState } from "@/interface/state";
+import Link from "next/link";
 
 export function Products({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const dispatch: Dispatch<any> = useDispatch();
+  const services = useSelector((state: sliceState) => state.services.data);
+
+  useEffect(() => {
+    dispatch(servicesAsync());
+  }, [dispatch]);
+
   return (
     <div
       {...props}
@@ -42,17 +26,21 @@ export function Products({
         className
       )}
     >
-      {imageList.map((image) => (
-        <div key={image.text} className="text-center min-w-[70px] max-w-[70px]">
+      {services.map((service) => (
+        <Link
+          key={service.service_code}
+          className="text-center min-w-[70px] max-w-[70px]"
+          href={`/purchase/${service.service_code}`}
+        >
           <Image
-            src={image.src}
-            alt={image.text}
+            src={service.service_icon}
+            alt={service.service_code}
             className="mb-2 w-[70px] h-[70px]"
             width={70}
             height={70}
           />
-          <p className="text-xs leading-none">{image.text}</p>
-        </div>
+          <p className="text-xs leading-none">{service.service_name}</p>
+        </Link>
       ))}
     </div>
   );
