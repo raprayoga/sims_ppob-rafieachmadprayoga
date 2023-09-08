@@ -27,7 +27,7 @@ export const balanceSlice = createSlice({
   initialState,
   reducers: {
     setVisible(state, action) {
-      state.isVisibleSaldo = action.payload.value;
+      state.isVisibleSaldo = action.payload;
     },
   },
   extraReducers: (builder) => {
