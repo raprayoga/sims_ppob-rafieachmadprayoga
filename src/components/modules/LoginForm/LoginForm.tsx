@@ -18,18 +18,8 @@ import { sliceState } from "@/interface/state";
 import { Dispatch } from "@reduxjs/toolkit";
 import { showToast } from "@/store/toast";
 import { useRouter } from "next/router";
-
-function getVariant(dirty: boolean, error: boolean) {
-  if (error) {
-    return "primary";
-  }
-  return !dirty ? "default" : "green";
-}
-
-export type Inputs = {
-  email: string;
-  password: string;
-};
+import { formRules, getVariant } from "@/utils/form-rules";
+import { loginInputsForm } from "@/interface/auth";
 
 export function LoginForm({
   className,
@@ -45,7 +35,7 @@ export function LoginForm({
       dispatch(
         showToast({
           message: auth.error?.message,
-          type: "primary",
+          type: "danger",
         })
       );
     }
@@ -66,11 +56,11 @@ export function LoginForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<loginInputsForm>({
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<loginInputsForm> = (data) => {
     dispatch(loginAsync(data));
   };
 
@@ -103,16 +93,7 @@ export function LoginForm({
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             control={control}
-            rules={{
-              required: {
-                value: true,
-                message: "Field ini Harus diisi",
-              },
-              pattern: {
-                value: /\S+@\S+\.\S+/,
-                message: "Field ini harus format email",
-              },
-            }}
+            rules={{ required: formRules.required, pattern: formRules.email }}
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
@@ -140,12 +121,7 @@ export function LoginForm({
 
           <Controller
             control={control}
-            rules={{
-              required: {
-                value: true,
-                message: "Field ini Harus diisi",
-              },
-            }}
+            rules={{ required: formRules.required }}
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
