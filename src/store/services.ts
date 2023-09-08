@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { ServiceResponse, ServicesSliceState } from "@/interface/services";
 import { services } from "@/services/servicesService";
+import Router from "next/router";
 
 const initialState: ServicesSliceState = {
   loading: false,
@@ -14,6 +15,7 @@ export const servicesAsync = createAsyncThunk<ServiceResponse>(
     return await services()
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

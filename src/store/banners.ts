@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BannersResponse, BannersSliceState } from "@/interface/banners";
 import { banners } from "@/services/bannersService";
+import Router from "next/router";
 
 const initialState: BannersSliceState = {
   loading: false,
@@ -14,6 +15,7 @@ export const bannersAsync = createAsyncThunk<BannersResponse>(
     return await banners()
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

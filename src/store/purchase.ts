@@ -5,6 +5,7 @@ import {
   PurchaseSliceState,
 } from "@/interface/purchase";
 import { purchase } from "@/services/purchaseService";
+import Router from "next/router";
 
 const initialState: PurchaseSliceState = {
   loading: false,
@@ -19,6 +20,7 @@ export const purchaseAsync = createAsyncThunk<
   return await purchase(payload)
     .then((response) => response)
     .catch((error) => {
+      if (error.response.status === 401) Router.push("/login");
       return rejectWithValue(error.response.data);
     });
 });

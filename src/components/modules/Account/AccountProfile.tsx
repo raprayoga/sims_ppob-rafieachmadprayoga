@@ -14,7 +14,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { logout } from "@/store/auth";
 import Dialog from "@/components/elements/Dialog";
 import { useForm } from "react-hook-form";
-import { resetUserFetch, uploadImageeAsync } from "@/store/user";
+import { profileAsync, resetUserFetch, uploadImageeAsync } from "@/store/user";
 import { showToast } from "@/store/toast";
 
 export function AccountProfile({
@@ -78,6 +78,10 @@ export function AccountProfile({
     user.successFetch,
     userData?.profile_image,
   ]);
+
+  useEffect(() => {
+    dispatch(profileAsync());
+  }, [dispatch]);
 
   const handleSetShowDialog = (value: boolean) => {
     setisShowDialog(value);

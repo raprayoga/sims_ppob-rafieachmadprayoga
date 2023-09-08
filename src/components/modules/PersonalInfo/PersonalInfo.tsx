@@ -33,19 +33,6 @@ export function PersonalInfo({
   };
 
   useEffect(() => {
-    if (userError && userError.status === 108) {
-      dispatch(
-        showToast({
-          message: userError?.message,
-          type: "danger",
-        })
-      );
-      dispatch(reset());
-      router.push("/login");
-    }
-  }, [dispatch, router, userError]);
-
-  useEffect(() => {
     dispatch(profileAsync());
     dispatch(balanceAsync());
   }, [dispatch]);

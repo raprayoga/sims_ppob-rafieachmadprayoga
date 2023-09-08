@@ -5,6 +5,7 @@ import {
   RegistSliceState,
   RegistInputForm,
 } from "@/interface/auth";
+import Router from "next/router";
 
 const initialState: RegistSliceState = {
   loading: false,
@@ -18,6 +19,7 @@ export const registAsync = createAsyncThunk<RegistResponse, RegistInputForm>(
     return await regist(payload)
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

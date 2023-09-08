@@ -14,7 +14,7 @@ export function TransactionHistory({
   const dispatch: Dispatch<any> = useDispatch();
   const transactions = useSelector((state: sliceState) => state.transactions);
   const [offset, setOffset] = useState<number>(0);
-  const limit: number = 5;
+  const limit: number = 10;
 
   const handleLoadMore = () => {
     setOffset((prevState) => {
@@ -37,7 +37,7 @@ export function TransactionHistory({
       <h5 className="text-lg font-bold mb-5">Semua Transaksi</h5>
       {transactions.data.map((transaction: Record) => (
         <Card
-          key={transaction.invoice_number}
+          key={transaction.created_on}
           className="flex justify-between mb-5 border-gray-1"
         >
           <div>
