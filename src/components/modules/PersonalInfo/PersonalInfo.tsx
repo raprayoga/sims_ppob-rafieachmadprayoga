@@ -8,17 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
 import { sliceState } from "@/interface/state";
 import { profileAsync, reset } from "@/store/user";
-import { useRouter } from "next/router";
-import { showToast } from "@/store/toast";
 import { balanceAsync, setVisible } from "@/store/balance";
 
 export function PersonalInfo({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const router = useRouter();
   const dispatch: Dispatch<any> = useDispatch();
-  const userError = useSelector((state: sliceState) => state.user.error);
   const userData = useSelector((state: sliceState) => state.user.data?.data);
   const balance = useSelector((state: sliceState) => state.balance?.balance);
   const balanceVisibles = useSelector(
