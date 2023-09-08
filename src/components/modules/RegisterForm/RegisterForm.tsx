@@ -98,6 +98,7 @@ export function RegisterForm({
         <Controller
           control={control}
           rules={{ required: formRules.required, pattern: formRules.email }}
+          defaultValue=""
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },
@@ -126,6 +127,7 @@ export function RegisterForm({
         <Controller
           control={control}
           rules={{ required: formRules.required }}
+          defaultValue=""
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },
@@ -154,6 +156,7 @@ export function RegisterForm({
         <Controller
           control={control}
           rules={{ required: formRules.required }}
+          defaultValue=""
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },
@@ -183,6 +186,7 @@ export function RegisterForm({
         <Controller
           control={control}
           rules={{ required: formRules.required }}
+          defaultValue=""
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },
@@ -227,6 +231,7 @@ export function RegisterForm({
             validate: (value) =>
               value === watch("password") || "password  tidak sama",
           }}
+          defaultValue=""
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },

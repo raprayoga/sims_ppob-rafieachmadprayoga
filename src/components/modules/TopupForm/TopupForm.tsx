@@ -83,6 +83,7 @@ export function TopupForm({
         <Controller
           control={control}
           rules={{ required: formRules.required, min: formRules.minNominal(0) }}
+          defaultValue={0}
           render={({
             field: { onChange, onBlur, value },
             fieldState: { isDirty, error },

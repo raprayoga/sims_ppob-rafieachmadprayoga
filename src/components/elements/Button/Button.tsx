@@ -81,7 +81,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && (
           <svg
-            className="m-auto animate-spin inline align-middle w-3"
+            className="m-auto animate-spin inline align-middle w-4"
             aria-hidden="true"
             role="status"
             viewBox="0 0 100 101"

@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Dispatch } from "@reduxjs/toolkit";
 import { purchaseAsync, resetPurchase } from "@/store/purchase";
 import { servicesAsync } from "@/store/services";
+import { balanceAsync } from "@/store/balance";
 
 export function PurchaseForm({
   className,
@@ -54,17 +55,20 @@ export function PurchaseForm({
   useEffect(() => {
     dispatch(servicesAsync());
 
+    return () => {
+      dispatch(resetPurchase());
+    };
+  }, []);
+
+  useEffect(() => {
     if (purchase.data) {
       setIsShowDialog([false, false, true]);
+      dispatch(balanceAsync());
     }
 
     if (purchase.error) {
       setIsShowDialog([false, true, false]);
     }
-
-    return () => {
-      dispatch(resetPurchase());
-    };
   }, [dispatch, purchase.data, purchase.error]);
 
   return (
