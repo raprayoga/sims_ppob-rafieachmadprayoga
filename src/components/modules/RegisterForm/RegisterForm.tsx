@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/utils";
 import { Input, InputGroup } from "@/components/elements/InputGroup";
 import {
@@ -12,13 +12,53 @@ import Button from "@/components/elements/Button";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/assets/images/Logo.png";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { formRules, getVariant } from "@/utils/form-rules";
+import { registInputForm } from "@/interface/auth";
+import { Dispatch } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+import { registAsync } from "@/store/regist";
+import { sliceState } from "@/interface/state";
+import { showToast } from "@/store/toast";
 
 export function RegisterForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const dispatch: Dispatch<any> = useDispatch();
+  const regist = useSelector((state: sliceState) => state.regist);
   const [isShowPass, setIsShowPass] = useState(false);
   const [isShowPassKonf, setIsShowPassKonf] = useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm<registInputForm>({
+    mode: "onChange",
+  });
+
+  useEffect(() => {
+    if (regist.error) {
+      dispatch(
+        showToast({
+          message: regist.error?.message,
+          type: "danger",
+        })
+      );
+    }
+    if (regist.data) {
+      dispatch(
+        showToast({
+          message: regist.data?.message,
+          type: "green",
+        })
+      );
+      reset();
+    }
+  }, [dispatch, regist.error, regist.data, reset]);
 
   const handleToggleShowPass = () => {
     setIsShowPass((prevState) => {
@@ -29,6 +69,10 @@ export function RegisterForm({
     setIsShowPassKonf((prevState) => {
       return !prevState;
     });
+  };
+
+  const onSubmit: SubmitHandler<registInputForm> = (data) => {
+    dispatch(registAsync(data));
   };
 
   return (
@@ -50,70 +94,183 @@ export function RegisterForm({
         </h3>
       </div>
 
-      <form action="">
-        <InputGroup className="w-full">
-          <AtSymbolIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            type="email"
-            name="email"
-            placeholder="masukan email anda"
-            className="pl-6"
-          />
-        </InputGroup>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          rules={{ required: formRules.required, pattern: formRules.email }}
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isDirty, error },
+          }) => (
+            <>
+              <InputGroup className="w-full">
+                <AtSymbolIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                <Input
+                  type="email"
+                  placeholder="masukan email anda"
+                  className="pl-6"
+                  theme={getVariant(isDirty, !!error)}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                />
+              </InputGroup>
+              <span className="text-[10px] text-primary float-right">
+                {errors.email ? errors.email.message : ""}
+              </span>
+            </>
+          )}
+          name="email"
+        />
 
-        <InputGroup className="w-full mt-8">
-          <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input name="first_name" placeholder="nama depan" className="pl-6" />
-        </InputGroup>
+        <Controller
+          control={control}
+          rules={{ required: formRules.required }}
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isDirty, error },
+          }) => (
+            <>
+              <InputGroup className="w-full mt-8">
+                <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                <Input
+                  placeholder="nama depan"
+                  className="pl-6"
+                  theme={getVariant(isDirty, !!error)}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                />
+              </InputGroup>
 
-        <InputGroup className="w- mt-8">
-          <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            name="last_name"
-            placeholder="nama belakang"
-            className="pl-6"
-          />
-        </InputGroup>
+              <span className="text-[10px] text-primary float-right">
+                {errors.first_name ? errors.first_name.message : ""}
+              </span>
+            </>
+          )}
+          name="first_name"
+        />
 
-        <InputGroup className="w-full mt-8">
-          <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            name="last_name"
-            type={isShowPass ? "text" : "password"}
-            placeholder="buat password"
-            className="px-6"
-          />
-          <div
-            onClick={handleToggleShowPass}
-            className="absolute right-2 left-auto cursor-pointer"
-          >
-            {!isShowPass && <EyeIcon className="w-3 stroke-2 text-gray" />}
-            {isShowPass && <EyeSlashIcon className="w-3 stroke-2 text-gray" />}
-          </div>
-        </InputGroup>
+        <Controller
+          control={control}
+          rules={{ required: formRules.required }}
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isDirty, error },
+          }) => (
+            <>
+              <InputGroup className="w- mt-8">
+                <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                <Input
+                  name="last_name"
+                  placeholder="nama belakang"
+                  className="pl-6"
+                  theme={getVariant(isDirty, !!error)}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                />
+              </InputGroup>
 
-        <InputGroup className="w-full mt-8">
-          <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            type={isShowPassKonf ? "text" : "password"}
-            placeholder="konfirmasi password"
-            className="px-6"
-          />
+              <span className="text-[10px] text-primary float-right">
+                {errors.last_name ? errors.last_name.message : ""}
+              </span>
+            </>
+          )}
+          name="last_name"
+        />
 
-          <div
-            onClick={handleToggleShowPassKonf}
-            className="absolute right-2 left-auto cursor-pointer"
-          >
-            {!isShowPassKonf && (
-              <EyeIcon className="w-3 stroke-2 text-gray cursor-pointer" />
-            )}
-            {isShowPassKonf && (
-              <EyeSlashIcon className="w-3 stroke-2 text-gray cursor-pointer" />
-            )}
-          </div>
-        </InputGroup>
+        <Controller
+          control={control}
+          rules={{ required: formRules.required }}
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isDirty, error },
+          }) => (
+            <>
+              <InputGroup className="w-full mt-8">
+                <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                <Input
+                  type={isShowPass ? "text" : "password"}
+                  placeholder="buat password"
+                  className="px-6"
+                  theme={getVariant(isDirty, !!error)}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                />
+                <div
+                  onClick={handleToggleShowPass}
+                  className="absolute right-2 left-auto cursor-pointer"
+                >
+                  {!isShowPass && (
+                    <EyeIcon className="w-3 stroke-2 text-gray" />
+                  )}
+                  {isShowPass && (
+                    <EyeSlashIcon className="w-3 stroke-2 text-gray" />
+                  )}
+                </div>
+              </InputGroup>
 
-        <Button theme="primary" className="w-full mt-8">
+              <span className="text-[10px] text-primary float-right">
+                {errors.password ? errors.password.message : ""}
+              </span>
+            </>
+          )}
+          name="password"
+        />
+
+        <Controller
+          control={control}
+          rules={{
+            required: formRules.required,
+            validate: (value) =>
+              value === watch("password") || "password  tidak sama",
+          }}
+          render={({
+            field: { onChange, onBlur, value },
+            fieldState: { isDirty, error },
+          }) => (
+            <>
+              <InputGroup className="w-full mt-8">
+                <LockClosedIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                <Input
+                  type={isShowPassKonf ? "text" : "password"}
+                  placeholder="konfirmasi password"
+                  className="px-6"
+                  theme={getVariant(isDirty, !!error)}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                />
+
+                <div
+                  onClick={handleToggleShowPassKonf}
+                  className="absolute right-2 left-auto cursor-pointer"
+                >
+                  {!isShowPassKonf && (
+                    <EyeIcon className="w-3 stroke-2 text-gray cursor-pointer" />
+                  )}
+                  {isShowPassKonf && (
+                    <EyeSlashIcon className="w-3 stroke-2 text-gray cursor-pointer" />
+                  )}
+                </div>
+              </InputGroup>
+
+              <span className="text-[10px] text-primary float-right">
+                {errors.password_konfirm ? errors.password_konfirm.message : ""}
+              </span>
+            </>
+          )}
+          name="password_konfirm"
+        />
+
+        <Button
+          type="submit"
+          isLoading={regist.loading}
+          theme="primary"
+          className="w-full mt-8"
+        >
           Registrasi
         </Button>
       </form>
@@ -121,7 +278,7 @@ export function RegisterForm({
       <div className="mt-5">
         <span className="text-xs ">
           sudah punya akun? login{" "}
-          <Link href="/login" className="text-primary">
+          <Link href="/login" className="text-primary font-bold">
             di sini
           </Link>
         </span>
