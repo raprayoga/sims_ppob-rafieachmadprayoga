@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/utils";
 import bgSaldo from "@/assets/images/Background-Saldo.png";
@@ -24,6 +24,9 @@ export function PersonalInfo({
   const balanceVisibles = useSelector(
     (state: sliceState) => state.balance?.isVisibleSaldo
   );
+  const [src, setSrc] = useState<
+    string | typeof profilePhoto | null | undefined
+  >(userData?.profile_image);
 
   const handleToggleShow = () => {
     dispatch(setVisible(!balanceVisibles));
@@ -51,11 +54,12 @@ export function PersonalInfo({
     <div {...props} className={cn("flex justify-between", className)}>
       <div className="w-1/2">
         <Image
-          src={userData?.profile_image || profilePhoto}
+          src={src || ""}
           alt="profile photo"
           width={70}
           height={70}
-          className="w-[70px] h-[70px]"
+          className="w-[70px] h-[70px] rounded-full"
+          onError={() => setSrc(profilePhoto)}
         />
         <p className="text-lg mt-2">Selamat datang,</p>
         <h4 className="text-4xl font-semibold">

@@ -12,7 +12,13 @@ export interface ProfileResponse {
 }
 
 export interface ProfileSliceState {
+  successFetch: boolean;
   loading: boolean;
   data: null | ProfileResponse;
   error?: null | ProfileResponse;
+}
+
+export interface UserEditInputForm {
+  first_name: string;
+  last_name: string;
 }

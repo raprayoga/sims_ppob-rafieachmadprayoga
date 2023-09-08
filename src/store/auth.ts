@@ -30,6 +30,7 @@ export const authSlice = createSlice({
   reducers: {
     logout(state) {
       state.isLogin = false;
+      delete http.defaults.headers.common.Authorization;
     },
   },
   extraReducers: (builder) => {
