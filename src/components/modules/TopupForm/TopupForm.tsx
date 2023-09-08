@@ -48,6 +48,7 @@ export function TopupForm({
   };
 
   const submitConfirmed = () => {
+    handleHideDialog();
     dispatch(topupAsync({ top_up_amount: watch("top_up_amount") }));
   };
 
@@ -111,6 +112,7 @@ export function TopupForm({
           className={`w-full mt-5`}
           disabled={!!!watch("top_up_amount") || !!errors.top_up_amount}
           isDisabled={!!!watch("top_up_amount") || !!errors.top_up_amount}
+          isLoading={topup.loading}
         >
           Topup
         </Button>
@@ -169,7 +171,7 @@ export function TopupForm({
         <p className="font-bold text-xl">
           Rp{new Intl.NumberFormat("id-ID").format(+watch("top_up_amount"))}?
         </p>
-        <p className="text-sm mt-2 mb-4 cursor-pointer" onClick={() => {}}>
+        <p className="text-sm mt-2 mb-4" onClick={() => {}}>
           gagal
         </p>
         <Link
@@ -191,7 +193,7 @@ export function TopupForm({
         <p className="font-bold text-xl">
           Rp{new Intl.NumberFormat("id-ID").format(+watch("top_up_amount"))}?
         </p>
-        <p className="text-sm mt-2 mb-4 cursor-pointer" onClick={() => {}}>
+        <p className="text-sm mt-2 mb-4" onClick={() => {}}>
           berhasil
         </p>
         <Link

@@ -5,6 +5,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { servicesAsync } from "@/store/services";
 import { sliceState } from "@/interface/state";
+import Link from "next/link";
 
 export function Products({
   className,
@@ -26,9 +27,10 @@ export function Products({
       )}
     >
       {services.map((service) => (
-        <div
+        <Link
           key={service.service_code}
           className="text-center min-w-[70px] max-w-[70px]"
+          href={`/purchase/${service.service_code}`}
         >
           <Image
             src={service.service_icon}
@@ -38,7 +40,7 @@ export function Products({
             height={70}
           />
           <p className="text-xs leading-none">{service.service_name}</p>
-        </div>
+        </Link>
       ))}
     </div>
   );
