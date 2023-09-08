@@ -5,6 +5,7 @@ import {
   ProfileSliceState,
   UserEditInputForm,
 } from "@/interface/user";
+import Router from "next/router";
 
 const initialState: ProfileSliceState = {
   successFetch: false,
@@ -19,6 +20,7 @@ export const profileAsync = createAsyncThunk<ProfileResponse>(
     return await profile()
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }
@@ -31,6 +33,7 @@ export const editProfileAsync = createAsyncThunk<
   return await editProfile(payload)
     .then((response) => response)
     .catch((error) => {
+      if (error.response.status === 401) Router.push("/login");
       return rejectWithValue(error.response.data);
     });
 });
@@ -41,6 +44,7 @@ export const uploadImageeAsync = createAsyncThunk<ProfileResponse, any>(
     return await uploadImage(payload)
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

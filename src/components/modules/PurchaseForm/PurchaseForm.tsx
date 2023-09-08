@@ -58,7 +58,7 @@ export function PurchaseForm({
     return () => {
       dispatch(resetPurchase());
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (purchase.data) {

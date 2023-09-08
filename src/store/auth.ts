@@ -6,6 +6,7 @@ import {
   LoginInputsForm,
   LoginResponse,
 } from "@/interface/auth";
+import Router from "next/router";
 
 const initialState: AuthSliceState = {
   isLogin: false,
@@ -19,6 +20,7 @@ export const loginAsync = createAsyncThunk<LoginResponse, LoginInputsForm>(
     return await loginUser(payload)
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

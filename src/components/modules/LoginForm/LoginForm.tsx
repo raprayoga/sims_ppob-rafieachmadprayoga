@@ -30,6 +30,14 @@ export function LoginForm({
   const auth = useSelector((state: sliceState) => state.auth);
   const [isShowPass, setIsShowPass] = useState(false);
 
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginInputsForm>({
+    mode: "onChange",
+  });
+
   useEffect(() => {
     if (auth.error) {
       dispatch(
@@ -52,14 +60,6 @@ export function LoginForm({
     }
   }, [dispatch, auth.error, auth.isLogin, router]);
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginInputsForm>({
-    mode: "onChange",
-  });
-
   const onSubmit: SubmitHandler<LoginInputsForm> = (data) => {
     dispatch(loginAsync(data));
   };
@@ -69,6 +69,10 @@ export function LoginForm({
       return !prevState;
     });
   };
+
+  useEffect(() => {
+    if (auth.isLogin) router.push("/");
+  }, [auth.isLogin, router]);
 
   return (
     <>

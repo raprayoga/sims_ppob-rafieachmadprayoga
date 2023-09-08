@@ -5,6 +5,7 @@ import {
   TopupSliceState,
 } from "@/interface/topup";
 import { topup } from "@/services/topupService";
+import Router from "next/router";
 
 const initialState: TopupSliceState = {
   loading: false,
@@ -18,6 +19,7 @@ export const topupAsync = createAsyncThunk<TopupResponse, TopupInputForm>(
     return await topup(payload)
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }

@@ -20,13 +20,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { registAsync } from "@/store/regist";
 import { sliceState } from "@/interface/state";
 import { showToast } from "@/store/toast";
+import { useRouter } from "next/router";
 
 export function RegisterForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
+  const router = useRouter();
   const dispatch: Dispatch<any> = useDispatch();
   const regist = useSelector((state: sliceState) => state.regist);
+  const auth = useSelector((state: sliceState) => state.auth);
   const [isShowPass, setIsShowPass] = useState(false);
   const [isShowPassKonf, setIsShowPassKonf] = useState(false);
 
@@ -74,6 +77,10 @@ export function RegisterForm({
   const onSubmit: SubmitHandler<RegistInputForm> = (data) => {
     dispatch(registAsync(data));
   };
+
+  useEffect(() => {
+    if (auth.isLogin) router.push("/");
+  }, [auth.isLogin, router]);
 
   return (
     <div {...props} className={cn("text-center", className)}>

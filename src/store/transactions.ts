@@ -5,6 +5,7 @@ import {
   TransactionsSliceState,
 } from "@/interface/transactions";
 import { transactions } from "@/services/transactionsService";
+import Router from "next/router";
 
 const initialState: TransactionsSliceState = {
   isShowLoadMore: true,
@@ -20,6 +21,7 @@ export const transactionsAsync = createAsyncThunk<
   return await transactions(payload)
     .then((response) => response)
     .catch((error) => {
+      if (error.response.status === 401) Router.push("/login");
       return rejectWithValue(error.response.data);
     });
 });

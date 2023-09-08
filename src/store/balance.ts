@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BalanceResponse, BalanceSliceState } from "@/interface/balance";
 import { balance } from "@/services/balanceServicec";
+import Router from "next/router";
 
 const initialState: BalanceSliceState = {
   isVisibleSaldo: false,
@@ -15,6 +16,7 @@ export const balanceAsync = createAsyncThunk<BalanceResponse>(
     return await balance()
       .then((response) => response)
       .catch((error) => {
+        if (error.response.status === 401) Router.push("/login");
         return rejectWithValue(error.response.data);
       });
   }
@@ -25,7 +27,7 @@ export const balanceSlice = createSlice({
   initialState,
   reducers: {
     setVisible(state, action) {
-      state.isVisibleSaldo = action.payload;
+      state.isVisibleSaldo = action.payload.value;
     },
   },
   extraReducers: (builder) => {
