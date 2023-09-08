@@ -19,7 +19,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { showToast } from "@/store/toast";
 import { useRouter } from "next/router";
 import { formRules, getVariant } from "@/utils/form-rules";
-import { loginInputsForm } from "@/interface/auth";
+import { LoginInputsForm } from "@/interface/auth";
 
 export function LoginForm({
   className,
@@ -56,11 +56,11 @@ export function LoginForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginInputsForm>({
+  } = useForm<LoginInputsForm>({
     mode: "onChange",
   });
 
-  const onSubmit: SubmitHandler<loginInputsForm> = (data) => {
+  const onSubmit: SubmitHandler<LoginInputsForm> = (data) => {
     dispatch(loginAsync(data));
   };
 

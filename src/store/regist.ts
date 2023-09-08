@@ -1,18 +1,18 @@
 import { regist } from "@/services/authService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
-  registResponse,
-  registSliceState,
-  registInputForm,
+  RegistResponse,
+  RegistSliceState,
+  RegistInputForm,
 } from "@/interface/auth";
 
-const initialState: registSliceState = {
+const initialState: RegistSliceState = {
   loading: false,
   data: null,
   error: null,
 };
 
-export const registAsync = createAsyncThunk<registResponse, registInputForm>(
+export const registAsync = createAsyncThunk<RegistResponse, RegistInputForm>(
   "auth/fetchRegis",
   async (payload, { rejectWithValue }) => {
     return await regist(payload)
@@ -38,7 +38,7 @@ export const registSlice = createSlice({
       })
       .addCase(registAsync.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as registResponse;
+        state.error = action.payload as RegistResponse;
       });
   },
 });

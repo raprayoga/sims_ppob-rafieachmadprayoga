@@ -2,18 +2,18 @@ import { loginUser } from "@/services/authService";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "@/services/baseService";
 import {
-  authSliceState,
-  loginInputsForm,
-  loginResponse,
+  AuthSliceState,
+  LoginInputsForm,
+  LoginResponse,
 } from "@/interface/auth";
 
-const initialState: authSliceState = {
+const initialState: AuthSliceState = {
   isLogin: false,
   loading: false,
   error: null,
 };
 
-export const loginAsync = createAsyncThunk<loginResponse, loginInputsForm>(
+export const loginAsync = createAsyncThunk<LoginResponse, LoginInputsForm>(
   "auth/fetchLogin",
   async (payload, { rejectWithValue }) => {
     return await loginUser(payload)
@@ -45,7 +45,7 @@ export const authSlice = createSlice({
       })
       .addCase(loginAsync.rejected, (state, action) => {
         state.loading = state.isLogin = false;
-        state.error = action.payload as loginResponse;
+        state.error = action.payload as LoginResponse;
       });
   },
 });
