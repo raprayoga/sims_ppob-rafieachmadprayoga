@@ -3,6 +3,7 @@ import { BalanceResponse, BalanceSliceState } from "@/interface/balance";
 import { balance } from "@/services/balanceServicec";
 
 const initialState: BalanceSliceState = {
+  isVisibleSaldo: false,
   loading: false,
   balance: 0,
   error: null,
@@ -22,7 +23,11 @@ export const balanceAsync = createAsyncThunk<BalanceResponse>(
 export const balanceSlice = createSlice({
   name: "balance",
   initialState,
-  reducers: {},
+  reducers: {
+    setVisible(state, action) {
+      state.isVisibleSaldo = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(balanceAsync.pending, (state) => {
@@ -40,6 +45,6 @@ export const balanceSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = balanceSlice.actions;
+export const { setVisible } = balanceSlice.actions;
 
 export default balanceSlice.reducer;

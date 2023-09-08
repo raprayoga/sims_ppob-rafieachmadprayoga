@@ -10,7 +10,7 @@ import { sliceState } from "@/interface/state";
 import { profileAsync, reset } from "@/store/user";
 import { useRouter } from "next/router";
 import { showToast } from "@/store/toast";
-import { balanceAsync } from "@/store/balance";
+import { balanceAsync, setVisible } from "@/store/balance";
 
 export function PersonalInfo({
   className,
@@ -21,12 +21,12 @@ export function PersonalInfo({
   const userError = useSelector((state: sliceState) => state.user.error);
   const userData = useSelector((state: sliceState) => state.user.data?.data);
   const balance = useSelector((state: sliceState) => state.balance?.balance);
-  const [sShowSaldo, setIsShowSaldo] = useState(false);
+  const balanceVisibles = useSelector(
+    (state: sliceState) => state.balance?.isVisibleSaldo
+  );
 
   const handleToggleShow = () => {
-    setIsShowSaldo((prevState) => {
-      return !prevState;
-    });
+    dispatch(setVisible(!balanceVisibles));
   };
 
   useEffect(() => {
@@ -68,8 +68,10 @@ export function PersonalInfo({
           <div className="absolute text-white top-0 bottom-0 p-3 flex flex-col justify-between">
             <p>Saldo anda</p>
             <p className="text-3xl">
-              Rp {sShowSaldo && new Intl.NumberFormat("id-ID").format(balance)}
-              {!sShowSaldo && <>&#9679; &#9679; &#9679; &#9679;</>}
+              Rp{" "}
+              {balanceVisibles &&
+                new Intl.NumberFormat("id-ID").format(balance)}
+              {!balanceVisibles && <>&#9679; &#9679; &#9679; &#9679;</>}
             </p>
             <span className="text-xs">
               Lihat Saldo
@@ -77,8 +79,10 @@ export function PersonalInfo({
                 onClick={handleToggleShow}
                 className="cursor-pointer ml-2 inline-block"
               >
-                {!sShowSaldo && <EyeIcon className="w-3 stroke-2 text-white" />}
-                {sShowSaldo && (
+                {!balanceVisibles && (
+                  <EyeIcon className="w-3 stroke-2 text-white" />
+                )}
+                {balanceVisibles && (
                   <EyeSlashIcon className="w-3 stroke-2 text-white" />
                 )}
               </div>

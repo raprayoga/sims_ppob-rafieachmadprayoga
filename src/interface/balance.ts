@@ -9,6 +9,7 @@ export interface BalanceResponse {
 }
 
 export interface BalanceSliceState {
+  isVisibleSaldo: boolean;
   loading: boolean;
   balance: number;
   error?: null | BalanceResponse;
