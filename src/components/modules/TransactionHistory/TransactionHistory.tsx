@@ -1,39 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@/components/elements/Card";
 import dateFormat from "@/utils/dateFormat";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "@reduxjs/toolkit";
+import { sliceState } from "@/interface/state";
+import { resetTransaction, transactionsAsync } from "@/store/transactions";
+import { Record } from "@/interface/transactions";
 
 export function TransactionHistory({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  const transactions = [
-    {
-      invoice_number: "INV17082023-001",
-      transaction_type: "TOPUP",
-      description: "Top Up balance",
-      total_amount: 100000,
-      created_on: "2023-08-17T10:10:10.000Z",
-    },
-    {
-      invoice_number: "INV17082023-002",
-      transaction_type: "PAYMENT",
-      description: "PLN Pascabayar",
-      total_amount: 10000,
-      created_on: "2023-08-17T11:10:10.000Z",
-    },
-    {
-      invoice_number: "INV17082023-003",
-      transaction_type: "PAYMENT",
-      description: "Pulsa Indosat",
-      total_amount: 40000,
-      created_on: "2023-08-17T12:10:10.000Z",
-    },
-  ];
+  const dispatch: Dispatch<any> = useDispatch();
+  const transactions = useSelector((state: sliceState) => state.transactions);
+  const [offset, setOffset] = useState<number>(0);
+  const limit: number = 5;
+
+  const handleLoadMore = () => {
+    setOffset((prevState) => {
+      return prevState + 1;
+    });
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetTransaction());
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(transactionsAsync({ limit, offset }));
+  }, [dispatch, offset]);
 
   return (
     <div {...props}>
       <h5 className="text-lg font-bold mb-5">Semua Transaksi</h5>
-      {transactions.map((transaction) => (
+      {transactions.data.map((transaction: Record) => (
         <Card
           key={transaction.invoice_number}
           className="flex justify-between mb-5 border-gray-1"
@@ -64,9 +66,16 @@ export function TransactionHistory({
         </Card>
       ))}
 
-      <p className="text-primary font-bold text-center cursor-pointer">
-        Show more
-      </p>
+      {transactions.isShowLoadMore && (
+        <p
+          className={`text-center ${
+            transactions.loading ? "" : "text-primary font-bold cursor-pointer"
+          }`}
+          onClick={handleLoadMore}
+        >
+          {transactions.loading ? "Loading..." : "Show more"}
+        </p>
+      )}
     </div>
   );
 }
