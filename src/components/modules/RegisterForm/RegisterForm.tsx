@@ -14,7 +14,7 @@ import Image from "next/image";
 import logo from "@/assets/images/Logo.png";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { formRules, getVariant } from "@/utils/form-rules";
-import { registInputForm } from "@/interface/auth";
+import { RegistInputForm } from "@/interface/auth";
 import { Dispatch } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { registAsync } from "@/store/regist";
@@ -36,7 +36,7 @@ export function RegisterForm({
     formState: { errors },
     watch,
     reset,
-  } = useForm<registInputForm>({
+  } = useForm<RegistInputForm>({
     mode: "onChange",
   });
 
@@ -71,7 +71,7 @@ export function RegisterForm({
     });
   };
 
-  const onSubmit: SubmitHandler<registInputForm> = (data) => {
+  const onSubmit: SubmitHandler<RegistInputForm> = (data) => {
     dispatch(registAsync(data));
   };
 

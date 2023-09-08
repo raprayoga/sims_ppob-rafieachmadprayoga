@@ -1,33 +1,33 @@
-export interface loginResponse {
+export interface LoginResponse {
   status: number;
   message: string;
   data: null | { token: string };
 }
 
-export interface authSliceState {
+export interface AuthSliceState {
   isLogin: boolean;
   loading: boolean;
-  error?: null | loginResponse;
+  error?: null | LoginResponse;
 }
 
-export interface loginInputsForm {
+export interface LoginInputsForm {
   email: string;
   password: string;
 }
 
-export interface registResponse {
+export interface RegistResponse {
   status: number;
   message: string;
   data: null;
 }
 
-export interface registSliceState {
+export interface RegistSliceState {
   loading: boolean;
-  data: null | loginResponse;
-  error?: null | loginResponse;
+  data: null | LoginResponse;
+  error?: null | LoginResponse;
 }
 
-export interface registInputForm {
+export interface RegistInputForm {
   email: string;
   first_name: string;
   last_name: string;
