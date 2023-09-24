@@ -98,7 +98,7 @@ export function LoginForm({
           <Controller
             control={control}
             rules={{ required: formRules.required, pattern: formRules.email }}
-            defaultValue=""
+            defaultValue="belalangterbang@gmail.com"
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
@@ -127,7 +127,7 @@ export function LoginForm({
           <Controller
             control={control}
             rules={{ required: formRules.required }}
-            defaultValue=""
+            defaultValue="123456789"
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
